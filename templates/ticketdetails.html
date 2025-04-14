@@ -1,0 +1,156 @@
+{% include 'Usernavbar.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+<meta charset="ISO-8859-1">
+
+<style>
+
+
+.bg-img {
+	background-image: url('https://www.iconbunny.com/icons/media/catalog/product/2/3/2373.8-notebook-pen-icon-iconbunny.jpg');
+	height: 90.2vh;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+hr {
+  position: relative;
+  top: 5px;
+  border: none;
+  height: 4px;
+  background: black;
+  margin-bottom: 50px;
+}
+
+body {
+
+  background-size: cover;
+      background-repeat: no-repeat;
+}
+p{
+  font-size: x-large;
+  font-family: 'Times New Roman', Times, serif;
+  color: black;
+}
+button {
+	color: #2d63c8;
+	background-color: black;
+	font-size: 19px;
+	border-radius: 10px solid #2d63c8;
+	padding: 10px 10px;
+	cursor: pointer;
+	width:200px;
+}
+button:hover {
+	color: #2d63c8;
+	background-color: #ffffff;
+}
+h2{
+  font-weight: bolder;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.9cm;
+  color: #2d63c8;
+}
+#bx {
+  width: 100%;
+  border: 4px solid black;
+  padding-top: 10px;
+}
+.card2{
+    background-color:white;
+    width:70%;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px black;
+    z-index:-50000000;
+  }
+  label{
+    font-size: x-large;
+    font-weight: bolder;
+  }
+  input{
+    margin-bottom: 11px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+    <br><br><br>
+        <div class="row" style="margin: 0%;padding: 0%;">
+          <div class="col-md-5">
+        <br>
+        <h2 align = center>Bus Details</h2>
+        <p>
+                Departure date : {{ bus['departure_date'].date() }} {{bus['departure_date'].strftime("%I")}}:{{bus['departure_date'].strftime("%M")}} {{bus['departure_date'].strftime("%p")}}
+                Arrival date   :   {{ bus['arrival_date'].date() }} {{bus['arrival_date'].strftime("%I")}}:{{bus['arrival_date'].strftime("%M")}} {{bus['arrival_date'].strftime("%p")}}<br>
+                Cost              : {{ bus['price_per_ticket'].title() }}<br>
+                Depature: {{ bus['source'] }}<br>
+                Arrival: {{ bus['destination'].title() }}<br>
+                Seats Available: {{ bus['max_seats'] }}<br>        
+        </p>
+          </div>
+      <div class="col-md-7">
+        <div  style="color:navy;font-size: xx-large;font-weight: bolder;text-align: center;">Passenger Details</div>
+        <br>
+        <h3 class="text-center" style="color: red;">{{message}}</h3>
+            <form action={{url_for('BusBooking2', busid = bus['_id'])}} method="POST">
+              <input type="hidden" name="avlseats" value={{bus['max_seats']}}>
+              <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+              <input type="hidden" name="bus_id" value={{bus['_id']}}>
+               <label for="">Name</label>
+                <input type="text" required="required"
+											class="form-control border-left-0 border-top-0 border-right-0"
+											id="name" aria-describedby="emailHelp"
+											name="name" autofocus="on" size=10>
+              <label for="">DOB</label>
+              <input type="Date" required="required"
+                    class="form-control border-left-0 border-top-0 border-right-0"
+                    id="age" aria-describedby="emailHelp"
+                    name="age" autofocus="on" size=10>
+              <label for="">Gender</label><br>
+              <input type="radio" id="male" name="gender" value="Male" >
+              <label for="male" >Male</label>		
+              <input style="margin-left: 15px;font-size: larger;" type="radio" id="gender" name="gender" value="Female">
+              <label for="female">Female</label>	
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                <label for="">Phone Number:</label>
+                <input type="text" required="required"
+											class="form-control border-left-0 border-top-0 border-right-0"
+											id="phno" aria-describedby="emailHelp"
+											name="phno" autofocus="on" >
+                <label for="">Email:</label>
+                <input type="email" required="required"
+											class="form-control border-left-0 border-top-0 border-right-0"
+											id="email" aria-describedby="emailHelp"
+											name="email" autofocus="on" >
+                <label for="">No of Passengers:</label>
+                <input type="number" required="required"
+											class="form-control border-left-0 border-top-0 border-right-0"
+											id="passengers" aria-describedby="emailHelp"
+											name="passengers" autofocus="on" >
+                <br>
+                <br>
+              </div>
+              </div>
+                <center>
+                <button type="submit" 
+										class="btn btn-primary btn-block w-25">
+										<h4>Book</h4>
+									</button>
+                </center>
+
+            </form>
+      </div>
+      </div>
+
+</div>
+    
+</body>

@@ -1,0 +1,103 @@
+{% if session['role'] == 'Admin':%}
+  {% include 'adminNavbar1.html' %}
+{% elif session['role'] == 'User':%}
+  {% include 'userNavbar.html' %}
+{% endif %}
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<meta charset="ISO-8859-1">
+<style>
+  .card2{
+    background-color:white;
+    width:100%;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px red;
+    z-index:-50000000;
+  }
+  body{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.7;
+   
+    overflow: hidden;
+  
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 4%;
+    height: 100vh;
+    width: 100%;
+  }
+  h1{
+    text-align: center;
+    color: antiquewhite;
+    font-size: xx-large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-top: 10px;
+  }
+  label,button,h4,h2,input,div{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-large;
+    font-weight: bold;
+    }
+
+    .bg-img {
+      background-image: url('./static/bus_search.jpg');
+      height: 100vh;
+      width: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+</style>
+</head>
+<body>
+
+
+    <div >
+      <div class="row">
+        <div class="col-md-7">
+          <div class="container-fluid bg-img"></div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+        <br><br>
+          <form action="busSearch" method="post">
+            <div class="mt-2">
+              <label for="Date" class="form-label">Date</label>
+              <input type="date" name="date" id="date" placeholder="Search date" required class="form-control">
+            </div>
+            <div class="mt-2">
+              <label for="Source" class="form-label">Source</label>
+              <select type="text" name="source" id="source" placeholder="Enter Source" required class="form-control">
+                {%for i in region%}
+                <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="mt-2">
+              <label for="destination" class="form-label">Destination</label>
+              <select type="text" name="destination" id="destination" placeholder="Enter Destination" required class="form-control">
+                {%for i in region%}
+                <option value="{{i}}">{{i}}</option>
+                {% endfor %}
+              </select>
+              </div>
+             <div class="mt-2">
+              <center>
+              <input type="submit" value="Search" class="btn btn-primary w-50 mt-3">
+            </center>
+             </div>
+          </form>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </div>
+    </div>
+
+
+  
+</body>

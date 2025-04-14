@@ -1,0 +1,142 @@
+{% include 'Usernavbar.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+<meta charset="ISO-8859-1">
+
+<style>
+
+
+.bg-img {
+	background-image: url('https://www.iconbunny.com/icons/media/catalog/product/2/3/2373.8-notebook-pen-icon-iconbunny.jpg');
+	height: 90.2vh;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+hr {
+  position: relative;
+  top: 5px;
+  border: none;
+  height: 4px;
+  background: black;
+  margin-bottom: 50px;
+}
+
+body {
+
+  background-size: cover;
+      background-repeat: no-repeat;
+}
+p{
+  text-align: justify;
+  margin-left: 20px;
+  margin-top: 20px;
+  padding-left: 20px;
+  font-size: x-large;
+  font-family: 'Times New Roman', Times, serif;
+  color: darkslategray;
+}
+button {
+	color: #2d63c8;
+	background-color: black;
+	font-size: 19px;
+	border-radius: 10px solid #2d63c8;
+	padding: 10px 10px;
+	cursor: pointer;
+	width:200px;
+}
+button:hover {
+	color: #2d63c8;
+	background-color: #ffffff;
+}
+h2{
+  font-weight: bolder;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 0.9cm;
+  color: #2d63c8;
+}
+#bx {
+  width: 100%;
+  border: 4px solid black;
+  padding-top: 10px;
+}
+.card2{
+    background-color:white;
+    width:100%;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px black;
+    z-index:-50000000;
+  }
+</style>
+<script>
+    ticket(){
+        {{nticket}} = document.getElementById("ticket").value;
+        window.alert("hello")
+    }
+</script>
+</head>
+<body style="margin: 0%;padding: 0%;">
+
+<div class="container" >
+    <br><br><br>
+    <center>
+        <div class="text-center h4 mt-2" style="color:navy">Tickets</div>
+    </center>
+    <form action="BusBooking1" method="post">
+    <div class="row">
+        {% for user in psng %}
+        {%set bus=get_buses(user['bus_id'])%}
+
+        <div class="col-md-11 mt-3">
+            <div class="card2 mt-2 p-3" style="align-items: center;">
+                <div class="col-md-12 mt-1">
+                    <div  style="font-style:80%">Booking _id : {{user["_id"]}}&nbsp;&nbsp;&nbsp;&nbsp;Name : {{user['name']}}&nbsp;&nbsp;&nbsp;&nbsp;DOB : {{user['DOB']}}&nbsp;&nbsp;&nbsp;&nbsp;Source : {{bus['source']}}&nbsp;&nbsp;&nbsp;&nbsp;Destination : {{bus['destination']}}
+                        
+                    </div>
+                </div>
+                
+                <div class="col-md-12 mt-1">
+                    <div  class="glyphicon glyphicon-calendar" style="font-style:80%">Arrival Date : {{ bus['arrival_date'].date() }} {{bus['arrival_date'].strftime("%I")}}:{{bus['arrival_date'].strftime("%M")}} {{bus['arrival_date'].strftime("%p")}}
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Departure Date :{{ bus['departure_date'].date() }} {{bus['departure_date'].strftime("%I")}}:{{bus['departure_date'].strftime("%M")}} {{bus['departure_date'].strftime("%p")}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Driver : {{bus['DriverName']}}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phone Number : 654567888
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-1">
+                  <center>
+                    {%if user['status']=="Booked"%}
+                  <div  class="glyphicon glyphicon-calendar" style="font-style:80%;color: black;font-size: x-large;"> Status : {{user['status']}}
+                  
+                  </div>
+                  {%endif%}
+                  {%if user['status']!="Booked"%}
+                  <div  class="glyphicon glyphicon-calendar" style="font-style:80%;color: red;font-size: x-large;"> Status : {{user['status']}}
+                  
+                  </div>
+                  {%endif%}
+                </center>
+              </div>
+                
+                
+            </div>
+          </div>  
+          
+         {%if user['status']=="Booked"%}
+        
+        <div class="col-md-1 pt-2" style="margin-top: 48px;">
+      
+          <button style="font-weight: bolder;padding: 0%;" type="button"> <a class="nav-link"  href="/cancel?id={{user['_id']}}">Cancel</a></button>
+      </div> 
+      {%endif%}
+        {% endfor %}
+  
+  </div>
+</form>
+</div>
+    
+</body>

@@ -1,0 +1,76 @@
+
+{% if session['role'] == 'Admin':%}
+  {% include 'adminNavbar.html' %}
+{% elif session['role'] == 'User':%}
+  {% include 'userNavbar.html' %}
+{% endif %}
+<head>
+  <style>
+    .card2{
+      background-color:white;
+      width:100%;
+      border-radius:5px;
+      box-shadow: 0px 0px 10px red;
+      z-index:-50000000;
+    }
+    body{
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #ececee;
+      background-color: #1f2029;
+ 
+      background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
+      background-position: center;
+      background-repeat: repeat;
+      background-size: 4%;
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+    <div class="container">
+      <h1 style="color:white;text-align: center;"> Buses</h1>
+      {% if count==0: %}
+      <br>
+      <br>
+
+      <h3 style="color:red;text-align: center;">No Buses Available</h3>
+        {%endif%}
+  </div>
+        <div class="row">
+
+            {% for bus in buses: %}
+          {% set providers=get_bus_id(bus['providers_id'])%}
+            <div class="col-md-3 mt-3" style="z-index:0">
+                <div class="card2 mt-5 ml-5 p-3">
+                     <div class="mt-1">
+                          <div class="text-muted h5" style="font-style:80%">Available Slots</div>
+                          <div style="color: black;" class="h6">{{bus['max_seats']}}</div>
+                    </div>
+                     <!-- <div class="mt-1">
+                          <div class="text-muted h5" style="font-style:80%">Slot Name</div>
+                          <div style="color: black;" class="h6">{{flight['slot_name']}}</div>
+                    </div> -->
+                     <div class="mt-1">
+                          <div class="text-muted h5" style="font-style:80%">price per ticket</div>
+                          <div style="color: black;" class="h6">${{bus['price_per_ticket']}}</div>
+                    </div>
+                     <!-- <div class="mt-1 h5">
+                          <div class="text-muted" style="font-style:80%">Address</div>
+                          <div style="color: black;" class="h6">{{flight['address']}}</div>
+                    </div> -->
+                    {% if session['role'] == 'User':%}
+                    <center>
+                    <div class="my-1">
+                        <a href="BusBooking?bus_id={{bus['_id']}}" class="btn btn-primary">&nbsp;&nbsp;&nbsp;Book Ticket&nbsp;&nbsp;&nbsp;</a>
+                    </div>
+                  </center>
+                    {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+
+    </div>
+</div>

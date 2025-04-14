@@ -1,0 +1,77 @@
+
+{% if session['role'] == 'Admin':%}
+  {% include 'adminNavbar.html' %}
+{% elif session['role'] == 'User':%}
+  {% include 'userNavbar.html' %}
+{% endif %}
+<head>
+  <style>
+    .card2{
+      background-color:white;
+      width:100%;
+      border-radius:5px;
+      box-shadow: 0px 0px 10px red;
+      z-index:-50000000;
+    }
+    body{
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #ececee;
+      background-color: #1f2029;
+      overflow-x: hidden;
+
+      background-position: center;
+      background-repeat: repeat;
+      background-size: 4%;
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+    <div class="container-fluid">
+      <h1 style="color:white;text-align: center;"> Buses</h1>
+      {% if count==0: %}
+      <br>
+      <br>
+
+      <h3 style="color:red;text-align: center;">No Buses Available</h3>
+        {%endif%}
+  </div>
+        <div class="row">
+
+            {% for bus in Buses: %}
+          {% set providers=get_bus_id(bus['provider_id'])%}
+            <div class="col-md-3" style="z-index:0">
+                <div class="card2 mt-3 ml-5 p-3">
+                    
+                      <div class="mt-1">
+                        <div class="text-muted h5" style="font-style:80%;font-weight: bold;">Driver Name</div>
+                        <div style="color: black;" class="h6">{{bus['DriverName']}}</div>
+                  </div>
+                     <div class="mt-1">
+                          <div class="text-muted h5" style="font-style:80%;font-weight: bold;">No of tickets</div>
+                          <div style="color: black;" class="h6">{{bus['max_seats']}}</div>
+                    </div>
+                     <div class="mt-1">
+                          <div class="text-muted h5" style="font-style:80%;font-weight: bold;">Price per Hour</div>
+                          <div style="color: black;" class="h6">${{bus['price_per_ticket']}}</div>
+                    </div>
+                    <div class="mt-1">
+                      <div class="text-muted h5" style="font-style:80%;font-weight: bold;">Source</div>
+                      <div style="color: black;" class="h6">{{bus['source']}}</div>
+                </div>
+                <div class="mt-1">
+                  <div class="text-muted h5" style="font-style:80%;font-weight: bold;">Destination</div>
+                  <div style="color: black;" class="h6">{{bus['destination']}}</div>
+            </div>
+                    <center>
+                   
+                  </center>
+                </div>
+              </div>
+            {% endfor %}
+
+    </div>
+</div>
